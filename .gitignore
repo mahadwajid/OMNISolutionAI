@@ -15,6 +15,9 @@ yarn-error.log*
 build/
 dist/
 
+# Vercel
+.vercel
+
 # Logs
 logs/
 *.log

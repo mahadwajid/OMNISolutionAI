@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { 
+  MdEmail, 
+  MdPhone, 
+  MdLocationOn, 
+  MdAccessTime,
+  MdQuestionMark
+} from 'react-icons/md';
+import { 
+  FaLinkedin,
+  FaInstagram
+} from 'react-icons/fa';
 
 const Contact = () => {
   const fadeInUp = {
@@ -62,7 +73,7 @@ const Contact = () => {
 
     try {
       // Send form data to backend endpoint that uses Nodemailer
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch('https://backend-omni-ruby.vercel.app/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,25 +108,25 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: '📧',
+      icon: <MdEmail className="w-6 h-6" />,
       title: 'Email',
       content: 'info@omnisolveai.digital',
       link: 'mailto:info@omnisolveai.digital'
     },
     {
-      icon: '📞',
+      icon: <MdPhone className="w-6 h-6" />,
       title: 'Phone',
       content: '0300-1016022',
       link: 'tel:0300-1016022'
     },
     {
-      icon: '📍',
+      icon: <MdLocationOn className="w-6 h-6" />,
       title: 'Address',
-      content: 'Lahore, Pakistan',
+      content: 'Islamabad, Pakistan',
       link: null
     },
     {
-      icon: '⏰',
+      icon: <MdAccessTime className="w-6 h-6" />,
       title: 'Business Hours',
       content: 'Mon - Fri: 9:00 AM - 6:00 PM PKT',
       link: null
@@ -481,7 +492,7 @@ const Contact = () => {
                     key={index} 
                     className="flex items-start group"
                   >
-                    <div className="text-3xl mr-6 p-3 bg-gradient-to-br from-[#0B3D91] to-[#6C63FF] rounded-2xl text-white shadow-lg">
+                    <div className="mr-6 p-3 bg-gradient-to-br from-[#0B3D91] to-[#6C63FF] rounded-2xl text-white shadow-lg">
                       {info.icon}
                     </div>
                     <div>
@@ -521,10 +532,8 @@ const Contact = () => {
                     className="flex items-center text-gray-700 group"
                   >
                     <div className="w-6 h-6 bg-gradient-to-br from-[#0B3D91] to-[#6C63FF] rounded-full flex items-center justify-center mr-4">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
+                      <MdQuestionMark className="w-4 h-4 text-white" />
+                    </div>
                     <span className="text-lg">{question}</span>
                 </div>
                 ))}
@@ -541,19 +550,26 @@ const Contact = () => {
               </h3>
               <div className="flex space-x-6">
                 {[
-                  { icon: 'Twitter', color: 'from-blue-400 to-blue-600' },
-                  { icon: 'LinkedIn', color: 'from-blue-600 to-blue-800' },
-                  { icon: 'Facebook', color: 'from-purple-500 to-purple-700' }
+                  { 
+                    icon: <FaLinkedin className="w-8 h-8" />,
+                    color: 'from-blue-600 to-blue-800',
+                    href: 'https://www.linkedin.com/company/omnisolve-ai/about/'
+                  },
+                  { 
+                    icon: <FaInstagram className="w-8 h-8" />,
+                    color: 'from-purple-500 via-pink-500 to-orange-500',
+                    href: 'https://instagram.com/omnisolveai'
+                  }
                 ].map((social, index) => (
                   <a 
                     key={index}
-                    href="#" 
-                    className={`w-16 h-16 bg-gradient-to-br ${social.color} rounded-2xl flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300`}
+                    href={social.href} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-16 h-16 bg-gradient-to-br ${social.color} rounded-2xl flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110`}
                   >
-                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                  </svg>
-                </a>
+                    {social.icon}
+                  </a>
                 ))}
               </div>
             </div>
