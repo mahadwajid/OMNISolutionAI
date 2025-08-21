@@ -4,6 +4,12 @@
     "react-app/jest"
   ],
   "rules": {
-    "no-unused-vars": "warn"
+    "no-unused-vars": "off",
+    "no-undef": "error"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
   }
 }
