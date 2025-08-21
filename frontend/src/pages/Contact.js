@@ -13,42 +13,6 @@ import {
 } from 'react-icons/fa';
 
 const Contact = () => {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const cardVariants = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    hover: {
-      y: -10,
-      scale: 1.02,
-      transition: { duration: 0.3 }
-    },
-    transition: { duration: 0.6 }
-  };
-
-  const formVariants = {
-    initial: { opacity: 0, x: -50 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.8 }
-  };
-
-  const infoVariants = {
-    initial: { opacity: 0, x: 50 },
-    animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.8 }
-  };
   const [formData, setFormData] = useState({
     name: '',
     email: '',
