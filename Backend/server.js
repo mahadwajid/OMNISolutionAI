@@ -14,9 +14,34 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 
 // CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://omni-solution-ai.vercel.app',
+  'https://omni-solution-ai-git-main-omni-solution-ai.vercel.app',
+  'https://omni-solution-ai-git-develop-omni-solution-ai.vercel.app'
+];
+
+// Add any additional origins from environment variable
+if (process.env.CORS_ORIGIN) {
+  const additionalOrigins = process.env.CORS_ORIGIN.split(',').map(origin => origin.trim());
+  allowedOrigins.push(...additionalOrigins);
+}
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Rate limiting
@@ -77,6 +102,7 @@ app.listen(PORT, () => {
   console.log(`📧 Email service: ${process.env.EMAIL_SERVICE || 'Not configured'}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🌐 Allowed CORS origins:`, allowedOrigins);
 });
 
 module.exports = app;
